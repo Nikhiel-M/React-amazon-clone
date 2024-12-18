@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import ShoppingContext from "./Shopping/ShoppingContext";
+import ShoppingContext from "../Shopping/ShoppingContext";
 import './CheckoutProduct.css'
 
 export const CheckoutProduct = ({

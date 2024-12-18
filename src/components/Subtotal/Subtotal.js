@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import CurrencyFormat from "react-currency-format";
 import "./Subtotal.css";
-import ShoppingContext from "./Shopping/ShoppingContext";
+import ShoppingContext from "../Shopping/ShoppingContext";
 
 const Subtotal = () => {
   const shoppingContextValue = useContext(ShoppingContext);

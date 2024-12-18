@@ -10,7 +10,7 @@ import NotFound from "./components/NotFound/NotFound";
 import { useContext, useEffect } from "react";
 import { auth } from "./Firebase";
 import ShoppingContext from "./components/Shopping/ShoppingContext";
-import Checkout from "./components/Checkout";
+import Checkout from "./components/Checkout/Checkout";
 
 
 const App = () => {
