@@ -1,0 +1,98 @@
+.header h5{
+  color: white;
+}
+
+.header{ 
+    color: white;
+    width: 100%;
+     height: 4rem; 
+     background-color: #131921; 
+     padding: 0;
+     position: sticky;
+     top: 0;
+     z-index: 100;
+}
+
+.header nav {
+    height: 100%; 
+    display: flex;
+}
+
+.logodiv{
+   display: flex;
+
+}
+.logodiv h3{
+    margin-top: 1rem;
+    color: rgb(255, 255, 255);
+    padding-right: 20px;
+    text-decoration: none;
+}
+.logo{
+    height: 2.5rem;
+    width: 8rem;
+    padding: 0 0 0 0;
+    margin: 9% 0 0 5%;
+}
+
+
+.location{
+    display: flex;
+    padding-right: 1%;
+    margin-top: 1rem;
+}
+.location strong{
+  margin-top: 0.3rem;
+}
+
+#icon-pin {
+    color: white;
+    margin: 0;
+    font-size: 2rem;
+}
+
+.account{
+    display: flex;
+    flex-direction: column;
+    margin: 0.7rem 0 0 1rem ;
+}
+h5 {
+  color: white;
+    font-weight: 300;
+    margin: 0; 
+    
+  }
+
+  strong{
+    color: white;
+    font-weight: 600;
+  }
+
+  .returns{
+    display: flex;
+    flex-direction: column;
+    margin: 0.7rem 0 0 2rem ;
+}
+.returns h5 {
+    margin: 0; 
+  }
+
+  .basket{
+    display: flex;
+    margin: 1rem 0 0 2rem ;
+}
+
+.basket strong{
+  margin-top: 0.3rem;
+}
+
+#icon-basket{
+    color: white;
+    margin: 0;
+    font-size: 2rem;
+}
+
+.basket-number{
+  padding-right: 5px;
+  color: orange
+}
