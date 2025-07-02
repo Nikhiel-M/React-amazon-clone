@@ -1,27 +1,22 @@
-// import { onRequest } from "firebase-functions/v2/https";
-// import logger from "firebase-functions/logger";
 
-import functions from "firebase-functions";
-import express from "express";
-import cors from "cors";
-import Stripe from "stripe";
+const functions = require("firebase-functions");
+const express = require("express");
+const cors = require("cors");
+// const stripe = require("stripe")("secreteCode")
 
-// Initialize Stripe
-const stripe = Stripe(
-  "sk_test_51QYP2IL8UBTHhdB9As3M4YktmA9mFafmK1BorpkHuIVCizxzQtpjtdyF5kYIv0rttV6pXcgVT7dCkikiKfX2w4Jd00FSOe3PcY"
-);
 
-// API
+// -API-
 
-// App config
-const app = express();
 
-// Middlewares
-app.use(cors({ origin: true }));
-app.use(express.json());
+// -APP Config
+const app = express()
 
-// API Routes
-app.get("/", (req, res) => res.status(200).send("hello world"));
+// -Middlewares
+app.use(cors({origin: true}))
+app.use(express.json())
 
-// listen command\
-exports.api = functions.https.onRequest(app);
+// -Api Routes
+app.get('/', (req, res) => res.status(200).send('Hello World'))
+
+// -Listen Command
+exports.api = functions.https.onRequest(app)

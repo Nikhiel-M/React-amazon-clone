@@ -19,7 +19,7 @@ const Products = () => {
         title="Samsung Galaxy A15 4GB Ram 128GB Dual Sim Smartphone, Black"
         image="https://m.media-amazon.com/images/I/517clbYccvL._AC_SX300_SY300_.jpg"
         rating={4}
-        price={49.99} 
+        price={29.99} 
       />
     </div>
 
