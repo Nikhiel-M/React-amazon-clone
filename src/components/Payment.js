@@ -6,10 +6,11 @@ import { CheckoutProduct } from "./Checkout/CheckoutProduct";
 import { NumericFormat } from "react-number-format";
 import { CardElement, useStripe, useElements } from "@stripe/react-stripe-js";
 import "./Payment.css";
+import { db } from "../Firebase";
 
 const Payment = () => {
   const shoppingContextValue = useContext(ShoppingContext);
-  const { basket, user, getBasketTotal } = shoppingContextValue;
+  const { basket, user, getBasketTotal, emptyBasket } = shoppingContextValue;
   const history = useHistory();
   const stripe = useStripe();
   const elements = useElements();
@@ -34,11 +35,17 @@ const Payment = () => {
 
   // console.log("The secret is:", clientSecret);
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setProcessing(true);
+const handleSubmit = async (e) => {
+  e.preventDefault();
+  setProcessing(true);
 
- const payload = await stripe.confirmCardPayment(clientSecret, {
+  if (!stripe || !elements) {
+    setProcessing(false);
+    setError("Stripe has not loaded yet.");
+    return;
+  }
+
+  const payload = await stripe.confirmCardPayment(clientSecret, {
     payment_method: { card: elements.getElement(CardElement) },
   });
 
@@ -46,12 +53,23 @@ const Payment = () => {
     setError(payload.error.message);
     setProcessing(false);
   } else {
+    db.collection("users")
+      .doc(user?.uid)
+      .collection("orders")
+      .doc(payload.paymentIntent.id)
+      .set({
+        basket: basket,
+        amount: payload.paymentIntent.amount,
+        created: payload.paymentIntent.created,
+      });
     setSucceeded(true);
     setError(null);
     setProcessing(false);
-    history.push('/orders'); 
+    emptyBasket();
+    history.push("/orders");
   }
-  };
+};
+
   const handleChange = (e) => {
     setDisable(e.empty);
     setError(e.error ? e.error.message : "");
