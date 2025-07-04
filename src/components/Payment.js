@@ -1,12 +1,62 @@
-import React, { useContext } from "react";
+import React, { useContext, useState, useEffect } from "react";
+import axios from "../axios";
+import { Link, useHistory } from "react-router-dom";
 import ShoppingContext from "./Shopping/ShoppingContext";
-import { Link } from "react-router-dom";
 import { CheckoutProduct } from "./Checkout/CheckoutProduct";
+import { NumericFormat } from "react-number-format";
+import { CardElement, useStripe, useElements } from "@stripe/react-stripe-js";
 import "./Payment.css";
 
 const Payment = () => {
   const shoppingContextValue = useContext(ShoppingContext);
-  const { basket, user } = shoppingContextValue;
+  const { basket, user, getBasketTotal } = shoppingContextValue;
+  const history = useHistory();
+  const stripe = useStripe();
+  const elements = useElements();
+
+  const [succeeded, setSucceeded] = useState(false);
+  const [processing, setProcessing] = useState("");
+  const [error, setError] = useState(null);
+  const [disabled, setDisable] = useState(true);
+  const [clientSecret, setClientSecret] = useState("");
+
+  useEffect(() => {
+    // Generate the special stripe secret which allows us to charge a customer
+    const getClientSecret = async () => {
+      const response = await axios({
+        method: "post",
+        url: `/payments/create?total=${getBasketTotal(basket) * 100}`,
+      });
+      setClientSecret(response.data.clientSecret);
+    };
+    getClientSecret();
+  }, [basket, getBasketTotal]);
+
+  // console.log("The secret is:", clientSecret);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setProcessing(true);
+
+ const payload = await stripe.confirmCardPayment(clientSecret, {
+    payment_method: { card: elements.getElement(CardElement) },
+  });
+
+  if (payload.error) {
+    setError(payload.error.message);
+    setProcessing(false);
+  } else {
+    setSucceeded(true);
+    setError(null);
+    setProcessing(false);
+    history.push('/orders'); 
+  }
+  };
+  const handleChange = (e) => {
+    setDisable(e.empty);
+    setError(e.error ? e.error.message : "");
+  };
+
   return (
     <div className="payment">
       <div className="payment-container">
@@ -45,7 +95,27 @@ const Payment = () => {
         <div className="payment-title">
           <h3>Payment Method</h3>
         </div>
-        <div className="payment-details">{/* stripe code  */}</div>
+        <div className="payment-details">
+          {/* stripe code  */}
+          <form onSubmit={handleSubmit}>
+            <CardElement onChange={handleChange} />
+            <div className="payment_price_container">
+              <NumericFormat
+                value={getBasketTotal(basket)}
+                displayType="text"
+                thousandSeparator={true}
+                decimalScale={2}
+                prefix="$"
+                renderText={(value) => <h3>Order Total: {value}</h3>}
+              />
+              <button disabled={processing || disabled || succeeded}>
+                {/* // className="payment-button" type="submit" onClick={handleSubmit} */}
+                <span>{processing ? <p>processing</p> : "Buy Now"}</span>
+              </button>
+            </div>
+            {error && <div>{error}</div>}
+          </form>
+        </div>
       </div>
     </div>
   );
