@@ -1,7 +1,7 @@
 import { useReducer } from "react";
 import ShoppingContext from "./ShoppingContext";
 import { ShoppingReducer } from "./ShoppingReducer";
-import { type } from "@testing-library/user-event/dist/type";
+
 
 export const ShoppingState = (props) => {
   const initialState = { basket: [], user: null };

@@ -126,7 +126,9 @@ const handleSubmit = async (e) => {
                 prefix="$"
                 renderText={(value) => <h3>Order Total: {value}</h3>}
               />
-              <button disabled={processing || disabled || succeeded}>
+              <button
+               className="payment-button"
+               disabled={processing || disabled || succeeded}>
                 {/* // className="payment-button" type="submit" onClick={handleSubmit} */}
                 <span>{processing ? <p>processing</p> : "Buy Now"}</span>
               </button>

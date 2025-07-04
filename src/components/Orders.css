@@ -1,0 +1,16 @@
+h1{
+    position: relative;
+    font-size: 2rem;
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    left: 35%;
+}
+
+.title {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}

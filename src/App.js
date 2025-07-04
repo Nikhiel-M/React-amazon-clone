@@ -18,6 +18,7 @@ import Checkout from "./components/Checkout/Checkout";
 import Payment from "./components/Payment";
 import { loadStripe } from "@stripe/stripe-js";
 import { Elements } from "@stripe/react-stripe-js";
+import Orders from "./components/Orders";
 
 const promise = loadStripe(
   "pk_test_51QYP2IL8UBTHhdB9rBTEMItlvUq4Y1qILpFPwaYp5hchsZF6hdNkF8k5BsTdeik3tQPpybL9O3KvjR93nZT0MnGN0065zjdFt9"
@@ -74,6 +75,10 @@ const App = () => {
 
             <Route exact path="/login">
               <Login />
+            </Route>
+
+            <Route exact path="/orders">
+              <Orders />
             </Route>
 
             <Route path="*">
