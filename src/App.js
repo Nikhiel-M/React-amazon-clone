@@ -38,7 +38,7 @@ const App = () => {
         setUser(null);
       }
     });
-  }, []);
+  }, [setUser, authUser]);
 
   return (
     <Router>
@@ -69,10 +69,6 @@ const App = () => {
               <Products />
             </Route>
 
-            {/* <Route exact path="/products/:id">
-              <ProductsDetails />
-            </Route> */}
-
             <Route exact path="/login">
               <Login />
             </Route>
@@ -92,5 +88,3 @@ const App = () => {
 };
 
 export default App;
-
-// Checkout (islogin)

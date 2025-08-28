@@ -2,7 +2,6 @@ import { useReducer } from "react";
 import ShoppingContext from "./ShoppingContext";
 import { ShoppingReducer } from "./ShoppingReducer";
 
-
 export const ShoppingState = (props) => {
   const initialState = { basket: [], user: null };
   const [state, dispatch] = useReducer(ShoppingReducer, initialState);
