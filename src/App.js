@@ -24,7 +24,7 @@ const promise = loadStripe(
   "pk_test_51QYP2IL8UBTHhdB9rBTEMItlvUq4Y1qILpFPwaYp5hchsZF6hdNkF8k5BsTdeik3tQPpybL9O3KvjR93nZT0MnGN0065zjdFt9"
 );
 
-const App = () => {
+const App = (authUser) => {
   const shoppingContext = useContext(ShoppingContext);
   const { setUser } = shoppingContext;
 
@@ -38,7 +38,7 @@ const App = () => {
         setUser(null);
       }
     });
-  }, [setUser, authUser]);
+  }, [setUser]);
 
   return (
     <Router>
