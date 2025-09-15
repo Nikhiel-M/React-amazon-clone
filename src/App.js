@@ -24,7 +24,7 @@ const promise = loadStripe(
   "pk_test_51QYP2IL8UBTHhdB9rBTEMItlvUq4Y1qILpFPwaYp5hchsZF6hdNkF8k5BsTdeik3tQPpybL9O3KvjR93nZT0MnGN0065zjdFt9"
 );
 
-const App = (authUser) => {
+const App = () => {
   const shoppingContext = useContext(ShoppingContext);
   const { setUser } = shoppingContext;
 
@@ -69,6 +69,10 @@ const App = (authUser) => {
               <Products />
             </Route>
 
+            {/* <Route exact path="/products/:id">
+              <ProductsDetails />
+            </Route> */}
+
             <Route exact path="/login">
               <Login />
             </Route>
@@ -88,3 +92,5 @@ const App = (authUser) => {
 };
 
 export default App;
+
+// Checkout (islogin)
