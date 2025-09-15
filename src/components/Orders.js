@@ -1,6 +1,5 @@
 import React from 'react'
 import "./Orders.css";
-import { db } from "../firebase";
 
 
 const Orders = () => {
