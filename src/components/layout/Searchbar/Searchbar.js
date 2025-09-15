@@ -8,7 +8,7 @@ const Searchbar = () => {
       <div className="search">
         <input className="searchInput" type="text" placeholder="Search Amazon.co.za" />
         <button>
-          <i class="material-icons">search</i>
+          <i className="material-icons">search</i>
         </button>
       </div>
     </div>

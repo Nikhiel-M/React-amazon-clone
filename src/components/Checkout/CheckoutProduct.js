@@ -2,38 +2,30 @@ import React, { useContext } from "react";
 import ShoppingContext from "../Shopping/ShoppingContext";
 import "./CheckoutProduct.css";
 
-export const CheckoutProduct = ({ id, title, image, price, rating, hideButton,}) => {
+export const CheckoutProduct = ({
+  id,
+  title,
+  image,
+  price,
+  rating,
+  hideButton,
+}) => {
+  const { removeFromBasket } = useContext(ShoppingContext);
 
-  const shoppingContextValue = useContext(ShoppingContext);
-  const { removeFromBasket } = shoppingContextValue;
+  const handleRemove = () => removeFromBasket({ id });
 
-  const removeFromBasketHandler = () => {
-    removeFromBasket({ id: id });
-  };
-  
   return (
     <div className="checkout_product">
-      <img className="checkout-image" src={image} alt={title} />
+      <img className="checkout-image" src={image || ""} alt={title || "Product"} />
       <div className="checkout-product-info">
-        <p className="checkout-product-title">{title}</p>
-
+        <p>{title || "No title"}</p>
         <div className="checkout-product-rating">
-          {Array(rating)
-            .fill()
-            .map((_, i) => (
-              <p key={i}>⭐</p>
-            ))}
+          {[...Array(Math.max(0, Number(rating) || 0))].map((_, i) => (
+            <span key={i}>⭐</span>
+          ))}
         </div>
-        <p className="checkout-product-price">${price}</p>
-        {!hideButton && (
-          <button
-            onClick={removeFromBasketHandler}
-            className="checkout-product-rating-button"
-          >
-            {" "}
-            Remove from basket
-          </button>
-        )}
+        <p>${Number(price) || 0}</p>
+        {!hideButton && <button onClick={handleRemove}>Remove from basket</button>}
       </div>
     </div>
   );

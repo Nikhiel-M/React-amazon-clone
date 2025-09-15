@@ -1,37 +1,33 @@
 import React, { useContext } from "react";
-import "./product.css";
 import ShoppingContext from "../Shopping/ShoppingContext";
+import "./product.css";
 
-function Product({ id, title, image, rating, price }) {
-  const shoppingContextValue = useContext(ShoppingContext);
-  const { addToBasket } = shoppingContextValue;
+function Product({ id, title, image, price, rating }) {
+  const { addToBasket } = useContext(ShoppingContext);
 
-  const AddToBasketHandler = () => {
-    addToBasket({ id, title, image, rating, price });
+  const handleAddToBasket = () => {
+    addToBasket({
+      id,
+      title: title || "No title",
+      image: image || "",
+      price: Number(price) || 0,
+      rating: Number(rating) || 0,
+    });
   };
 
-
   return (
-    <div className="product" key={id} >
-      <img src={image} alt={title} />
-
+    <div className="product" key={id}>
+      <img src={image || ""} alt={title || "Product"} />
       <div className="product-info">
-        <p>{title}</p>
-
+        <p>{title || "No title"}</p>
         <div className="product-rating">
-          {Array(rating)
-            .fill()
-            .map((_, i) => (
-              <p key={i}>⭐</p>
-            ))}
+          {[...Array(Math.max(0, Number(rating) || 0))].map((_, i) => (
+            <span key={i}>⭐</span>
+          ))}
         </div>
-
-        <p className="product-price">${price}</p>
+        <p className="product-price">${Number(price) || 0}</p>
       </div>
-      
-      <button className="product-button" onClick={AddToBasketHandler}>
-        Add to basket
-      </button>
+      <button onClick={handleAddToBasket}>Add to basket</button>
     </div>
   );
 }

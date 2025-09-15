@@ -22,7 +22,6 @@ const Payment = () => {
   const [clientSecret, setClientSecret] = useState("");
 
   useEffect(() => {
-    // Generate the special stripe secret which allows us to charge a customer
     const getClientSecret = async () => {
       const response = await axios({
         method: "post",
@@ -33,7 +32,6 @@ const Payment = () => {
     getClientSecret();
   }, [basket, getBasketTotal]);
 
-  // console.log("The secret is:", clientSecret);
 
 const handleSubmit = async (e) => {
   e.preventDefault();

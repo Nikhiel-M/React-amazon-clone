@@ -39,12 +39,20 @@ export const Header = ({ onLogOut }) => {
 
         <Searchbar />
 
-        <Link to={!user && "/login"}>
+        {!user && (
+          <Link to="/login">
+            <div className="account">
+              <h5>Sign In Guest</h5>
+              <strong>Account</strong>
+            </div>
+          </Link>
+        )}
+        {user && (
           <div className="account" onClick={handleAuthentication}>
-            <h5>{user ? "Sign out User" : "Sign In Guest"}</h5>
+            <h5>Sign out User</h5>
             <strong>Account</strong>
           </div>
-        </Link>
+        )}
 
         <div className="returns">
           <h5>Returns</h5>

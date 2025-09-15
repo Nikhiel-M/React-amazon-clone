@@ -26,19 +26,14 @@ const promise = loadStripe(
 
 const App = () => {
   const shoppingContext = useContext(ShoppingContext);
-  const { setUser } = shoppingContext;
+  const { dispatch } = shoppingContext;
 
-  useEffect(() => { 
-    auth.onAuthStateChanged((authUser) => {
-      console.log("user is", authUser);
-
-      if (authUser) {
-        setUser(authUser);
-      } else {
-        setUser(null);
-      }
+  useEffect(() => {
+    const unsubscribe = auth.onAuthStateChanged((authUser) => {
+      dispatch({ type: "SET_USER", payload: authUser });
     });
-  }, [setUser]);
+    return () => unsubscribe();
+  }, [dispatch]); // Add dispatch to dependencies if it's stable
 
   return (
     <Router>
@@ -60,7 +55,7 @@ const App = () => {
                 <Payment />
               </Elements>
             </Route>
- 
+
             <Route path="/home">
               <Home />
             </Route>

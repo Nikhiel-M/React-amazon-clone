@@ -4,6 +4,7 @@
 
 .payment-container > h1 {
     text-align: center;
+    left: 0;
     padding:  10px;
     font-weight: 400;
     background-color: rgb(234, 237, 237);

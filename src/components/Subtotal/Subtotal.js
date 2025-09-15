@@ -1,25 +1,26 @@
 import React, { useContext } from "react";
-import { NumericFormat } from "react-number-format"; // <-- use NumericFormat
+import { NumericFormat } from "react-number-format";
 import { useHistory } from "react-router-dom";
-import "./Subtotal.css";
 import ShoppingContext from "../Shopping/ShoppingContext";
+import "./Subtotal.css";
 
 const Subtotal = () => {
   const history = useHistory();
-  const shoppingContextValue = useContext(ShoppingContext);
-  const { basket, getBasketTotal } = shoppingContextValue;
+  const { basket, getBasketTotal } = useContext(ShoppingContext);
+
   return (
     <div className="subtotal">
       <NumericFormat
         value={getBasketTotal(basket)}
         displayType="text"
-        thousandSeparator={true}
+        thousandSeparator
         decimalScale={2}
         prefix="$"
         renderText={(value) => (
           <>
             <p>
-              Subtotal ({basket.length} items): <strong className="total-value">{value}</strong>
+              Subtotal ({basket.length} items):{" "}
+              <strong className="total-value">{value}</strong>
             </p>
             <small className="subtotal-gift">
               <input type="checkbox" /> This order contains a gift
@@ -27,7 +28,9 @@ const Subtotal = () => {
           </>
         )}
       />
-      <button onClick={e => history.push('/payment')}>Proceed to Checkout</button>
+      <button onClick={() => history.push("/payment")}>
+        Proceed to Checkout
+      </button>
     </div>
   );
 };
